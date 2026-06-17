@@ -59,6 +59,11 @@ def health():
     return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
 
+@app.get("/api/ping")
+def ping():
+    return {"pong": True}
+
+
 @app.get("/api/projects")
 def list_projects():
     return [{"id": 1, "github_url": "https://github.com/tcconnally/perseus-dashboard", "name": "perseus-dashboard", "created_at": datetime.now(timezone.utc), "last_context_at": None}]
