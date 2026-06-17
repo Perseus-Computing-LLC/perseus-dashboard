@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perseus Dashboard — H0 Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  #screen {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    width: 1150px;
+    height: 380px;
+    overflow-y: auto;
+    padding: 20px 28px;
+    font-size: 13px;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+  .line { margin: 2px 0; white-space: pre-wrap; word-break: break-all; }
+  .user { color: #5c7cfa; }
+  .agent { color: #3fb950; }
+  .system { color: #d2991d; }
+  .dim { color: #8b949e; }
+  .highlight { color: #ff7b72; }
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-right: 2px;
+  }
+  .badge-store { background: rgba(63,185,80,0.15); color: #3fb950; }
+  .badge-recall { background: rgba(92,124,250,0.15); color: #5c7cfa; }
+  .badge-insight { background: rgba(210,153,29,0.15); color: #d2991d; }
+  .badge-decay { background: rgba(248,81,73,0.15); color: #f85149; }
+  .title { font-size: 16px; font-weight: bold; color: #5c7cfa; }
+  .subtitle { font-size: 12px; color: #8b949e; }
+</style>
+</head>
+<body>
+<div id="screen"></div>
+<script>
+const screen = document.getElementById('screen');
+const lines = [];
+
+function addLine(text, cls = '') {
+  const div = document.createElement('div');
+  div.className = 'line ' + cls;
+  div.innerHTML = text;
+  screen.appendChild(div);
+  screen.scrollTo({ top: screen.scrollHeight, behavior: 'smooth' });
+}
+
+function pause(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function run() {
+  // === SCENE 1: The Problem (0:00-0:30) ===
+  addLine('<span class="title">╔════════════════════════════════════════╗</span>');
+  addLine('<span class="title">║  PERSEUS DASHBOARD — H0 HACKATHON DEMO ║</span>');
+  addLine('<span class="title">╚════════════════════════════════════════╝</span>');
+  addLine('');
+  addLine('<span class="dim">─── SCENE 1: THE PROBLEM ───</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="user">▸ developer:</span> Let me ask my AI assistant about our services...');
+  await pause(1200);
+  addLine('<span class="agent">● claude-code:</span> Let me check what\'s running...');
+  await pause(600);
+  addLine('<span class="agent">● claude-code:</span> <span class="dim">[running: docker ps]</span>');
+  addLine('<span class="agent">● claude-code:</span> <span class="dim">[reading: .env]</span>');
+  addLine('<span class="agent">● claude-code:</span> <span class="dim">[checking: CI status]</span>');
+  await pause(1000);
+  addLine('<span class="highlight">⚠ 3 tool calls wasted. ~2,800 tokens burned. Context was stale.</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="dim">Every AI coding session starts COLD. Agents rediscover your environment</span>');
+  addLine('<span class="dim">from scratch — burning tokens and turns on questions you already know.</span>');
+  await pause(2500);
+
+  // === SCENE 2: The Solution (0:30-1:10) ===
+  addLine('');
+  addLine('<span class="dim">─── SCENE 2: THE SOLUTION ───</span>');
+  await pause(1000);
+  addLine('');
+  addLine('<span class="user">▸ Perseus Dashboard:</span> <span class="badge badge-store">LIVE</span> Context resolved BEFORE the agent sees it.');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="dim">── Service Health ──</span>');
+  addLine('  <span class="agent">● CI (GitHub Actions)  </span> <span class="badge badge-store">UP</span> 234ms');
+  addLine('  <span class="agent">● PostgreSQL (Aurora)  </span> <span class="badge badge-store">UP</span> 12ms');
+  addLine('  <span class="agent">● Redis Cache           </span> <span class="badge badge-store">UP</span> 3ms');
+  addLine('  <span class="agent">● API Gateway           </span> <span class="badge badge-store">UP</span> 45ms');
+  addLine('  <span class="agent">● Docker Registry       </span> <span class="badge badge-store">UP</span> 89ms');
+  await pause(2000);
+  addLine('');
+  addLine('<span class="dim">── Context Snapshot (what the agent will see) ──</span>');
+  addLine('  <span class="user">📄 AGENTS.md</span> <span class="dim">— last modified 2h ago</span>');
+  addLine('  <span class="user">📄 pyproject.toml</span> <span class="dim">— deps: pyyaml, fastapi, psycopg2</span>');
+  addLine('  <span class="user">📄 docker-compose.yml</span> <span class="dim">— 3 containers running</span>');
+  addLine('');
+  addLine('<span class="system">◆ Token estimate: 847 tokens resolved — zero discovery waste.</span>');
+  await pause(2500);
+
+  // === SCENE 3: Memory Feed (1:10-1:50) ===
+  addLine('');
+  addLine('<span class="dim">─── SCENE 3: MEMORY FEED (Aurora PostgreSQL) ───</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="badge badge-store">STORE</span> <span class="dim">14:32:05</span>  <span class="agent">database.postgres_version</span> → PostgreSQL 16.3 on Aurora  <span class="dim">95%</span>');
+  await pause(800);
+  addLine('<span class="badge badge-recall">RECALL</span> <span class="dim">14:32:10</span>  <span class="agent">convention.python_formatter</span> → black --line-length 88  <span class="dim">92%</span>');
+  await pause(800);
+  addLine('<span class="badge badge-insight">INSIGHT</span> <span class="dim">14:32:22</span>  <span class="agent">pattern.api_structure</span> → FastAPI /api/{resource}/{id}/action  <span class="dim">88%</span>');
+  await pause(800);
+  addLine('<span class="badge badge-store">STORE</span> <span class="dim">14:32:35</span>  <span class="agent">config.ci_provider</span> → GitHub Actions with matrix build  <span class="dim">90%</span>');
+  await pause(800);
+  addLine('<span class="badge badge-decay">DECAY</span> <span class="dim">14:32:48</span>  <span class="agent">preference.old_editor</span> → vscode (switched to cursor)  <span class="dim">15%</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="system">◆ All memory events persisted to AWS Aurora PostgreSQL — durable across sessions.</span>');
+  await pause(2500);
+
+  // === SCENE 4: The Stack (1:50-2:25) ===
+  addLine('');
+  addLine('<span class="dim">─── SCENE 4: THE STACK (H0 Requirements) ───</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="user">▲ Vercel v0 Frontend</span> <span class="dim">— Next.js 14 + Tailwind CSS</span>');
+  addLine('  <span class="dim">│  Dashboard | Service Cards | Context Panel | Memory Feed | Charts</span>');
+  addLine('  <span class="dim">│</span>');
+  addLine('<span class="agent">🐍 FastAPI Backend</span> <span class="dim">— Python · SQLAlchemy · psycopg2</span>');
+  addLine('  <span class="dim">│  /api/projects | /api/context | /api/memories | /api/analytics</span>');
+  addLine('  <span class="dim">│</span>');
+  addLine('<span class="system">☁️ AWS Aurora PostgreSQL</span> <span class="dim">— Serverless v2</span>');
+  addLine('  <span class="dim">│  projects | context_snapshots (JSONB) | memory_events | token_analytics</span>');
+  addLine('  <span class="dim">│</span>');
+  addLine('<span class="highlight">🪞 Perseus Context Engine</span> <span class="dim">— v1.0.7 · MIT · 24 MCP tools</span>');
+  await pause(3000);
+
+  // === SCENE 5: Impact & CTA (2:25-2:55) ===
+  addLine('');
+  addLine('<span class="dim">─── SCENE 5: THE IMPACT ───</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="system">◆ Token Savings This Week</span>');
+  addLine('  <span class="agent">Mon  ████████████░░░░░░░░  2,100 saved / 8,500 used</span>');
+  addLine('  <span class="agent">Tue  ██████████░░░░░░░░░░  1,800 saved / 7,200 used</span>');
+  addLine('  <span class="agent">Wed  ██████████████░░░░░░  2,400 saved / 9,100 used</span>');
+  addLine('  <span class="agent">Thu  ██████████████████░  3,100 saved / 10,400 used</span>');
+  addLine('  <span class="agent">Fri  ███████████░░░░░░░░░  1,950 saved / 7,800 used</span>');
+  await pause(2500);
+  addLine('');
+  addLine('<span class="dim">── 12,847 tokens saved this week. Every token was discovery the agent didn\'t need. ──</span>');
+  await pause(1500);
+  addLine('');
+  addLine('<span class="title">╔════════════════════════════════════════╗</span>');
+  addLine('<span class="title">║  Perseus Dashboard                    ║</span>');
+  addLine('<span class="title">║  github.com/tcconnally/perseus-dashboard ║</span>');
+  addLine('<span class="title">║  H0: Hack the Zero Stack · Open Innovation ║</span>');
+  addLine('<span class="title">║  Vercel v0 + AWS Aurora PostgreSQL    ║</span>');
+  addLine('<span class="title">╚════════════════════════════════════════╝</span>');
+}
+
+run();
+</script>
+</body>
+</html>
