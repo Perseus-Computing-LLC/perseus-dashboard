@@ -3,10 +3,7 @@
     "frontend": {
       "root": "frontend",
       "routePrefix": "/",
-      "framework": "nextjs",
-      "env": {
-        "NEXT_PUBLIC_API_URL": "/_/backend"
-      }
+      "framework": "nextjs"
     },
     "backend": {
       "root": "backend",
