@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perseus Dashboard — H0 Submission Helper</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.5rem; color: #5c7cfa; }
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+  .label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .value { font-size: 0.95rem; line-height: 1.5; }
+  .value a { color: #5c7cfa; }
+  .copy-btn { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; float: right; margin-top: -4px; }
+  .copy-btn:hover { background: #30363d; }
+  hr { border: none; border-top: 1px solid #30363d; margin: 1.5rem 0; }
+  .checklist { list-style: none; }
+  .checklist li { padding: 4px 0; font-size: 0.9rem; }
+  .checklist li::before { content: '☐ '; color: #8b949e; }
+</style>
+</head>
+<body>
+
+<h1>🪞 Perseus Dashboard — H0 Submission Helper</h1>
+<p style="color:#8b949e; margin-bottom:2rem;">
+  Copy-paste these fields into your Devpost submission. All content pre-written.
+</p>
+
+<!-- Step 1: Project Name -->
+<h2>Step 1 — Project Name & Elevator Pitch</h2>
+<div class="section">
+  <div class="label">Project Name</div>
+  <div class="value">Perseus Dashboard</div>
+</div>
+<div class="section">
+  <div class="label">Elevator Pitch (200 chars max)</div>
+  <div class="value">Your AI coding agent's context goes stale within hours. Perseus Dashboard shows you exactly what your agent knows — live service health, context snapshots, memory feed, and token savings. Vercel v0 + AWS Aurora.</div>
+</div>
+
+<!-- Step 2: Project Details -->
+<h2>Step 2 — Project Details</h2>
+<div class="section">
+  <div class="label">What it does</div>
+  <div class="value">
+Perseus Dashboard gives developer teams real-time visibility into what their AI coding agents (Claude Code, Cursor, Copilot, Codex) "know" about their codebase. AI agents read stale context files — Perseus Dashboard connects to the Perseus context engine and shows: live service health (CI, databases, APIs), current context snapshots (what the agent sees), memory feed (facts stored/recalled/decayed), and token savings analytics. Eliminates the "what does my agent know?" blind spot.
+  </div>
+</div>
+<div class="section">
+  <div class="label">How I built it</div>
+  <div class="value">
+<strong>Frontend:</strong> Next.js 14 deployed on Vercel v0 — dark-themed dashboard with Recharts for data visualization, responsive service health cards, and memory feed timeline.<br><br>
+<strong>Backend:</strong> FastAPI (Python) providing REST endpoints for context resolution, service health, memory events, and token analytics.<br><br>
+<strong>Database:</strong> AWS Aurora PostgreSQL (Serverless v2) — stores projects, context snapshots (JSONB), memory events, and token analytics with full relational schema (SQLAlchemy ORM).<br><br>
+<strong>Context Engine:</strong> Perseus (perseus-ctx v1.0.7) — resolves live workspace state before the frontend displays it. 24 MCP tools, MIT-licensed.<br><br>
+<strong>Architecture:</strong> Vercel v0 → FastAPI → psycopg2 → AWS Aurora PostgreSQL. Three distinct tiers with genuine integration between all layers.
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">Why Open Innovation track</div>
+  <div class="value">
+Perseus Dashboard creates a new product category: "AI Agent Observability." Every dev team using AI coding assistants needs to know what their agent knows — this problem didn't exist 12 months ago. The Open Innovation track allows us to push the boundaries of what's possible with the Vercel v0 + AWS stack by building a real-time observability layer for the AI-assisted development workflow.
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">What's next</div>
+  <div class="value">
+1. Multi-project support across entire GitHub orgs<br>
+2. Slack/Discord notifications when context goes stale<br>
+3. Drift detection — compare current context to last session<br>
+4. Team-wide token savings analytics<br>
+5. Agent comparison — Claude vs Copilot vs Codex context usage patterns
+  </div>
+</div>
+
+<!-- Step 3: Additional Info -->
+<h2>Step 3 — Additional Info</h2>
+<div class="section">
+  <div class="label">GitHub Repository</div>
+  <div class="value"><a href="https://github.com/tcconnally/perseus-dashboard">https://github.com/tcconnally/perseus-dashboard</a></div>
+</div>
+<div class="section">
+  <div class="label">Hosted Project URL</div>
+  <div class="value"><a href="https://perseus-dashboard.vercel.app">https://perseus-dashboard.vercel.app</a></div>
+</div>
+<div class="section">
+  <div class="label">Demo Video URL</div>
+  <div class="value"><em>Upload to YouTube and paste link here</em></div>
+</div>
+<div class="section">
+  <div class="label">Track</div>
+  <div class="value">Open Innovation</div>
+</div>
+<div class="section">
+  <div class="label">AWS Database Used</div>
+  <div class="value">AWS Aurora PostgreSQL (Serverless v2)</div>
+</div>
+<div class="section">
+  <div class="label">Vercel Team ID</div>
+  <div class="value"><em>Find in Vercel dashboard → Settings → General</em></div>
+</div>
+<div class="section">
+  <div class="label">License</div>
+  <div class="value">MIT License</div>
+</div>
+
+<hr>
+
+<h2>📋 Pre-Submit Checklist</h2>
+<ul class="checklist">
+  <li>✅ GitHub repo public, MIT license in root AND About section</li>
+  <li>✅ Vercel deployment live and accessible</li>
+  <li>☐ AWS Aurora PostgreSQL provisioned and connected (screenshot proof for submission)</li>
+  <li>☐ Demo video recorded (≤3 min, YouTube/Vimeo) — must show app functioning + explain AWS DB usage</li>
+  <li>☐ Architecture diagram included in submission</li>
+  <li>☐ Vercel Team ID filled in</li>
+  <li>☐ All Devpost form fields complete</li>
+  <li>☐ Bonus: Blog post with #H0Hackathon hashtag published (+0.6 judging points)</li>
+</ul>
+
+</body>
+</html>
