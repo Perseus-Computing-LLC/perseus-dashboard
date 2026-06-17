@@ -31,12 +31,12 @@ It works with any MCP-compatible assistant: Claude Desktop, Cursor, Copilot, Her
 
 ## The Numbers
 
-| Metric | Value |
-|---|---|
-| Cold vs Warm render | 1,190× speedup |
-| Token reduction | 94% fewer prompt tokens |
-| P99 overhead | 0ms |
-| Gauntlet v2 reliability | 16/16 hard gates passed |
+```
+Cold vs Warm render:      1,190x speedup
+Token reduction:          94% fewer prompt tokens
+P99 overhead:             0ms
+Gauntlet v2 reliability:  16/16 hard gates passed
+```
 
 Over a week of daily use, a single developer saves 10,000-15,000 tokens just on discovery that the agent would have burned repeating the same checks.
 
