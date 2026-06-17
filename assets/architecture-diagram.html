@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perseus Dashboard Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="vercel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#171717"/>
+    </linearGradient>
+    <linearGradient id="fastapi" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#009688"/>
+      <stop offset="100%" stop-color="#00695c"/>
+    </linearGradient>
+    <linearGradient id="aws" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF9900"/>
+      <stop offset="100%" stop-color="#E68A00"/>
+    </linearGradient>
+    <linearGradient id="perseus" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5c7cfa"/>
+      <stop offset="100%" stop-color="#4263eb"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="720" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" fill="#e6edf3" font-size="28" font-weight="bold">Perseus Dashboard — Architecture</text>
+  <text x="600" y="78" text-anchor="middle" fill="#8b949e" font-size="14">H0: Hack the Zero Stack — Vercel v0 + AWS Aurora PostgreSQL</text>
+
+  <!-- Vercel v0 Frontend -->
+  <rect x="400" y="110" width="400" height="100" rx="10" fill="url(#vercel)" filter="url(#shadow)"/>
+  <text x="600" y="148" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">▲ Vercel v0 Frontend</text>
+  <text x="600" y="172" text-anchor="middle" fill="#d4d4d4" font-size="12">Next.js 14 · Tailwind CSS · Recharts</text>
+  <text x="600" y="192" text-anchor="middle" fill="#888" font-size="11">Dashboard UI | Service Cards | Context Panel | Memory Feed | Analytics Charts</text>
+
+  <!-- Arrow: v0 -> FastAPI -->
+  <line x1="600" y1="210" x2="600" y2="270" stroke="#5c7cfa" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="595,265 600,278 605,265" fill="#5c7cfa"/>
+  <text x="615" y="245" fill="#8b949e" font-size="11">REST + polling</text>
+
+  <!-- FastAPI Backend -->
+  <rect x="400" y="280" width="400" height="90" rx="10" fill="url(#fastapi)" filter="url(#shadow)"/>
+  <text x="600" y="316" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">🐍 FastAPI Backend</text>
+  <text x="600" y="340" text-anchor="middle" fill="#e0f2f1" font-size="12">Python · SQLAlchemy · psycopg2</text>
+  <text x="600" y="358" text-anchor="middle" fill="#b2dfdb" font-size="11">/api/projects | /api/context | /api/memories | /api/analytics</text>
+
+  <!-- Arrow: FastAPI -> Aurora -->
+  <line x1="600" y1="370" x2="600" y2="430" stroke="#FF9900" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="595,425 600,438 605,425" fill="#FF9900"/>
+  <text x="615" y="405" fill="#8b949e" font-size="11">SQL (psycopg2)</text>
+
+  <!-- AWS Aurora -->
+  <rect x="400" y="440" width="400" height="90" rx="10" fill="url(#aws)" filter="url(#shadow)"/>
+  <text x="600" y="476" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">☁️ AWS Aurora PostgreSQL</text>
+  <text x="600" y="500" text-anchor="middle" fill="#fff3e0" font-size="12">Serverless v2 · Connection Pooling</text>
+  <text x="600" y="518" text-anchor="middle" fill="#ffe0b2" font-size="11">projects | context_snapshots | memory_events | token_analytics</text>
+
+  <!-- Perseus Engine (side box) -->
+  <rect x="40" y="310" width="280" height="110" rx="10" fill="url(#perseus)" filter="url(#shadow)"/>
+  <text x="180" y="348" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">🪞 Perseus Context Engine</text>
+  <text x="180" y="372" text-anchor="middle" fill="#dbe4ff" font-size="12">perseus-ctx · MIT License</text>
+  <text x="180" y="394" text-anchor="middle" fill="#bac8ff" font-size="11">Resolves live workspace state</text>
+  <text x="180" y="410" text-anchor="middle" fill="#bac8ff" font-size="11">Services · Files · Memory · Drift</text>
+
+  <!-- Arrow: Perseus -> FastAPI -->
+  <line x1="320" y1="365" x2="398" y2="335" stroke="#5c7cfa" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="393,330 406,335 398,343" fill="#5c7cfa"/>
+
+  <!-- Arrow: Perseus -> Aurora -->
+  <line x1="180" y1="420" x2="180" y2="480" stroke="#FF9900" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="180" y1="480" x2="395" y2="480" stroke="#FF9900" stroke-width="2" stroke-dasharray="3,3"/>
+  <polygon points="390,475 403,480 390,485" fill="#FF9900"/>
+
+  <!-- Legend -->
+  <rect x="40" y="560" width="1120" height="140" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="70" y="595" fill="#e6edf3" font-size="16" font-weight="bold">Stack Summary</text>
+  
+  <rect x="70" y="612" width="200" height="24" rx="4" fill="#000"/>
+  <text x="130" y="629" text-anchor="middle" fill="#fff" font-size="11">Vercel v0 (Required)</text>
+  
+  <rect x="290" y="612" width="200" height="24" rx="4" fill="#FF9900"/>
+  <text x="350" y="629" text-anchor="middle" fill="#fff" font-size="11">AWS Aurora PostgreSQL (Required)</text>
+  
+  <rect x="510" y="612" width="200" height="24" rx="4" fill="#009688"/>
+  <text x="580" y="629" text-anchor="middle" fill="#fff" font-size="11">FastAPI Backend</text>
+  
+  <rect x="730" y="612" width="200" height="24" rx="4" fill="#5c7cfa"/>
+  <text x="800" y="629" text-anchor="middle" fill="#fff" font-size="11">Perseus Context Engine</text>
+
+  <text x="70" y="665" fill="#8b949e" font-size="12">Track: Open Innovation | Deadline: June 29, 2026 | License: MIT | GitHub: tcconnally/perseus-dashboard</text>
+  <text x="70" y="685" fill="#8b949e" font-size="12">H0: Hack the Zero Stack — $80,000 in prizes — Build with Vercel v0 and AWS Databases</text>
+</svg>
+</body>
+</html>
