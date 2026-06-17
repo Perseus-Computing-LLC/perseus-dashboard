@@ -10,19 +10,11 @@ import json
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
 
 DB_AVAILABLE = False
-
-try:
-    from database import init_db, get_db, Project, ContextSnapshot, MemoryEvent, TokenAnalytics
-    init_db()
-    DB_AVAILABLE = True
-except Exception as e:
-    print(f"Database not available — using mock data: {e}")
 
 app = FastAPI(title="Perseus Dashboard API", version="0.1.0")
 
@@ -69,16 +61,6 @@ MOCK_ANALYTICS = [
     {"id": i, "session_id": f"session-{i}", "tokens_saved": s, "tokens_total": u, "recorded_at": datetime.now(timezone.utc)}
     for i, (s, u) in enumerate([(2100, 8500), (1800, 7200), (2400, 9100), (3100, 10400), (1950, 7800)], start=1)
 ]
-
-def get_db_safe():
-    if not DB_AVAILABLE:
-        return None
-    try:
-        db = next(get_db())
-        return db
-    except Exception:
-        return None
-
 
 # --- Health ---
 
