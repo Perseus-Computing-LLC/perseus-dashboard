@@ -1,9 +1,16 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/.next",
-  "installCommand": "cd frontend && npm install",
-  "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_API_URL": "https://perseus-dashboard-api.vercel.app"
+  "experimentalServices": {
+    "frontend": {
+      "root": "frontend",
+      "routePrefix": "/",
+      "framework": "nextjs",
+      "env": {
+        "NEXT_PUBLIC_API_URL": "/_/backend"
+      }
+    },
+    "backend": {
+      "root": "backend",
+      "routePrefix": "/_/backend"
+    }
   }
 }
