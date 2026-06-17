@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-const API_URL = typeof window !== 'undefined'
-  ? (process.env.NEXT_PUBLIC_API_URL || '/_/backend')
-  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+const API_URL = ''
 
 interface MemoryEvent {
   id: number;
