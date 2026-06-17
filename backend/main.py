@@ -1,20 +1,10 @@
-"""
-Perseus Dashboard API — FastAPI backend for the H0 Hackathon entry.
-
-Connects Vercel v0 frontend to AWS Aurora PostgreSQL via Perseus context engine.
-Returns mock data when database is not connected.
-"""
-import os
-import subprocess
-import json
+"""Perseus Dashboard API -- FastAPI backend for H0 Hackathon. Mock data mode."""
 from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
-DB_AVAILABLE = False
 
 app = FastAPI(title="Perseus Dashboard API", version="0.1.0")
 
@@ -26,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Pydantic schemas ---
+# --- Schemas ---
 
 class ProjectCreate(BaseModel):
     github_url: str
@@ -62,18 +52,11 @@ MOCK_ANALYTICS = [
     for i, (s, u) in enumerate([(2100, 8500), (1800, 7200), (2400, 9100), (3100, 10400), (1950, 7800)], start=1)
 ]
 
-# --- Health ---
+# --- Routes ---
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat(), "db_available": DB_AVAILABLE}
-
-
-# --- Projects ---
-
-@app.post("/api/projects")
-def create_project(project: ProjectCreate):
-    return {"id": 1, "github_url": project.github_url, "name": project.name, "created_at": datetime.now(timezone.utc), "last_context_at": None}
+    return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
 
 @app.get("/api/projects")
@@ -85,8 +68,6 @@ def list_projects():
 def get_project(project_id: int):
     return {"id": 1, "github_url": "https://github.com/tcconnally/perseus-dashboard", "name": "perseus-dashboard", "created_at": datetime.now(timezone.utc), "last_context_at": None}
 
-
-# --- Context ---
 
 @app.get("/api/projects/{project_id}/context")
 def get_context(project_id: int):
@@ -104,23 +85,9 @@ def get_services(project_id: int):
     return [ServiceStatus(name=s["name"], status=s["status"], latency_ms=s.get("latency_ms")) for s in MOCK_SERVICES]
 
 
-# --- Memory ---
-
 @app.get("/api/projects/{project_id}/memories")
 def get_memories(project_id: int, limit: int = 50):
     return MOCK_MEMORIES[:limit]
-
-
-@app.post("/api/projects/{project_id}/memories")
-def record_memory(project_id: int, event_type: str, fact_key: str, fact_value: str, confidence: float = 0.8, session_id: str = None):
-    return {"id": 99, "status": "recorded"}
-
-
-# --- Analytics ---
-
-@app.get("/api/projects/{project_id}/analytics")
-def get_analytics(project_id: int, limit: int = 30):
-    return MOCK_ANALYTICS[:limit]
 
 
 @app.get("/api/projects/{project_id}/analytics/summary")
