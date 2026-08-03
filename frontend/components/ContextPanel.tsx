@@ -2,7 +2,7 @@ export default function ContextPanel({ context }: { context: any }) {
   if (!context) {
     return (
       <div>
-        <h2 className="text-lg font-semibold mb-3">Live Context Snapshot</h2>
+        <h2 className="text-lg font-semibold mb-3">Synthetic Context Snapshot</h2>
         <div className="card text-sm text-gray-400">
           <p className="mb-2">No live context snapshot is available.</p>
           <p>Connect an evidence-producing collector to show source, revision, and observation time.</p>
@@ -13,7 +13,7 @@ export default function ContextPanel({ context }: { context: any }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-3">Live Context Snapshot</h2>
+      <h2 className="text-lg font-semibold mb-3">Synthetic Context Snapshot</h2>
       <div className="card">
         <div className="text-xs text-gray-500 mb-3">
           Data mode: {context.data_mode || 'unknown'} &middot;

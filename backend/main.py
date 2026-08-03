@@ -22,6 +22,8 @@ class ServiceStatus(BaseModel):
     status: str
     latency_ms: Optional[float] = None
     data_mode: str = "synthetic"
+    source: str = "repository fixture"
+    observed_at: str = ""
 
 MOCK_SERVICES = [
     {"name": "CI (GitHub Actions)", "status": "up", "latency_ms": 234},
@@ -35,49 +37,77 @@ MOCK_SERVICES = [
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
+
+def telemetry_meta():
+    return {
+        "data_mode": "synthetic",
+        "source": "repository fixture",
+        "observed_at": now_iso(),
+    }
+
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "now": now_iso()}
+    return {"status": "ok", **telemetry_meta()}
 
 @app.get("/api/ping")
 def ping():
-    return {"pong": True, "now": now_iso()}
+    return {"pong": True, **telemetry_meta()}
 
 @app.get("/api/projects")
 def list_projects():
-    return [{"id": 1, "name": "perseus-dashboard", "now": now_iso()}]
+    return [{"id": 1, "name": "perseus-dashboard", **telemetry_meta()}]
 
 @app.get("/api/projects/{project_id}")
 def get_project(project_id: int):
-    return {"id": project_id, "name": "perseus-dashboard", "now": now_iso()}
+    return {"id": project_id, "name": "perseus-dashboard", **telemetry_meta()}
 
 @app.get("/api/projects/{project_id}/services", response_model=list[ServiceStatus])
 def get_services(project_id: int):
-    return [ServiceStatus(**s) for s in MOCK_SERVICES]
+    return [
+        ServiceStatus(
+            name=s["name"],
+            status=s["status"],
+            latency_ms=s["latency_ms"],
+            **telemetry_meta(),
+        )
+        for s in MOCK_SERVICES
+    ]
 
 @app.get("/api/projects/{project_id}/context")
 def get_context(project_id: int):
+    meta = telemetry_meta()
     return {
         "project_id": project_id,
-        "observed_at": now_iso(),
-        "data_mode": "synthetic",
         "synthetic": True,
-        "source": "repository fixture",
-        "services": [ServiceStatus(**s).model_dump() for s in MOCK_SERVICES],
+        **meta,
+        "services": [
+            ServiceStatus(
+                name=s["name"],
+                status=s["status"],
+                latency_ms=s["latency_ms"],
+                **meta,
+            ).model_dump()
+            for s in MOCK_SERVICES
+        ],
         "context_files": ["AGENTS.md"],
     }
 
 @app.get("/api/projects/{project_id}/memories")
 def get_memories(project_id: int, limit: int = 50):
-    return [{"id": 1, "event_type": "store", "data_mode": "synthetic", "created_at": now_iso()}]
+    return [{
+        "id": 1,
+        "event_type": "store",
+        "confidence": None,
+        "created_at": now_iso(),
+        **telemetry_meta(),
+    }]
 
 @app.get("/api/projects/{project_id}/analytics/summary")
 def get_analytics_summary(project_id: int):
+    meta = telemetry_meta()
     return {
         "project_id": project_id,
-        "data_mode": "synthetic",
         "metric_status": "unavailable",
-        "source": "repository fixture",
         "total_saved": None,
-        "observed_at": now_iso(),
+        **meta,
     }

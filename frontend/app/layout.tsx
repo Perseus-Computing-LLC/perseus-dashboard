@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Perseus Dashboard — Live Context for AI Agents',
-  description: 'See exactly what your AI coding agents know about your codebase — live, always current.',
+  title: 'Perseus Dashboard — Source-Labeled Context Prototype',
+  description: 'Inspect source-labeled synthetic context and explicit unavailable telemetry states for AI agents.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -101,7 +101,7 @@ export default function DashboardPage() {
 
       {/* Services Grid */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold mb-3">Service Health</h2>
+        <h2 className="text-lg font-semibold mb-3">Synthetic Service Fixture</h2>
         <div className="grid grid-cols-3 gap-3">
           {displayServices.length === 0 && <div className="card text-sm text-gray-400">No live service telemetry is available.</div>}
           {displayServices.map((svc) => (
@@ -119,7 +119,7 @@ export default function DashboardPage() {
       {/* Analytics Chart */}
       <div>
         <h2 className="text-lg font-semibold mb-3">Token Savings (Last 7 Days · synthetic fixture)</h2>
-        <TokenChart projectId={projectId} />
+        <TokenChart metricStatus={analytics?.metric_status} totalSaved={analytics?.total_saved} />
       </div>
     </div>
   );

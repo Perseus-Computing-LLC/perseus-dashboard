@@ -83,7 +83,7 @@ async function run() {
   addLine('<span class="agent">● claude-code:</span> <span class="dim">[reading: .env]</span>');
   addLine('<span class="agent">● claude-code:</span> <span class="dim">[checking: CI status]</span>');
   await pause(1000);
-  addLine('<span class="highlight">⚠ 3 tool calls wasted. ~2,800 tokens burned. Context was stale.</span>');
+  addLine('<span class="highlight">⚠ Discovery overhead is illustrative; token count unavailable without paired raw sessions.</span>');
   await pause(1500);
   addLine('');
   addLine('<span class="dim">Every AI coding session starts COLD. Agents rediscover your environment</span>');
@@ -95,15 +95,15 @@ async function run() {
   addLine('<span class="dim">─── SCENE 2: THE SOLUTION ───</span>');
   await pause(1000);
   addLine('');
-  addLine('<span class="user">▸ Perseus Dashboard:</span> <span class="badge badge-store">LIVE</span> Context resolved BEFORE the agent sees it.');
+  addLine('<span class="user">▸ Perseus Dashboard:</span> <span class="badge badge-store">SYNTHETIC</span> Source-labeled context fixture.');
   await pause(1500);
   addLine('');
-  addLine('<span class="dim">── Service Health ──</span>');
-  addLine('  <span class="agent">● CI (GitHub Actions)  </span> <span class="badge badge-store">UP</span> 234ms');
-  addLine('  <span class="agent">● PostgreSQL (Aurora)  </span> <span class="badge badge-store">UP</span> 12ms');
-  addLine('  <span class="agent">● Redis Cache           </span> <span class="badge badge-store">UP</span> 3ms');
-  addLine('  <span class="agent">● API Gateway           </span> <span class="badge badge-store">UP</span> 45ms');
-  addLine('  <span class="agent">● Docker Registry       </span> <span class="badge badge-store">UP</span> 89ms');
+  addLine('<span class="dim">── Synthetic Service Fixture ──</span>');
+  addLine('  <span class="agent">● CI (GitHub Actions)  </span> <span class="badge badge-store">FIXTURE</span> latency unavailable');
+  addLine('  <span class="agent">● PostgreSQL (Aurora)  </span> <span class="badge badge-store">FIXTURE</span> latency unavailable');
+  addLine('  <span class="agent">● Redis Cache           </span> <span class="badge badge-store">FIXTURE</span> latency unavailable');
+  addLine('  <span class="agent">● API Gateway           </span> <span class="badge badge-store">FIXTURE</span> latency unavailable');
+  addLine('  <span class="agent">● Docker Registry       </span> <span class="badge badge-store">FIXTURE</span> latency unavailable');
   await pause(2000);
   addLine('');
   addLine('<span class="dim">── Context Snapshot (what the agent will see) ──</span>');
@@ -111,12 +111,12 @@ async function run() {
   addLine('  <span class="user">📄 pyproject.toml</span> <span class="dim">— deps: pyyaml, fastapi, psycopg2</span>');
   addLine('  <span class="user">📄 docker-compose.yml</span> <span class="dim">— 3 containers running</span>');
   addLine('');
-  addLine('<span class="system">◆ Token estimate: 847 tokens resolved — zero discovery waste.</span>');
+  addLine('<span class="system">◆ Token estimate: unavailable — no paired raw session artifact.</span>');
   await pause(2500);
 
   // === SCENE 3: Memory Feed (1:10-1:50) ===
   addLine('');
-  addLine('<span class="dim">─── SCENE 3: MEMORY FEED (Aurora PostgreSQL) ───</span>');
+  addLine('<span class="dim">─── SCENE 3: MEMORY FEED (synthetic fixture) ───</span>');
   await pause(1500);
   addLine('');
   addLine('<span class="badge badge-store">STORE</span> <span class="dim">14:32:05</span>  <span class="agent">database.postgres_version</span> → PostgreSQL 16.3 on Aurora  <span class="dim">95%</span>');
@@ -130,7 +130,7 @@ async function run() {
   addLine('<span class="badge badge-decay">DECAY</span> <span class="dim">14:32:48</span>  <span class="agent">preference.old_editor</span> → vscode (switched to cursor)  <span class="dim">15%</span>');
   await pause(1500);
   addLine('');
-  addLine('<span class="system">◆ All memory events persisted to AWS Aurora PostgreSQL — durable across sessions.</span>');
+  addLine('<span class="system">◆ Synthetic memory fixture rendered — no live database write is claimed.</span>');
   await pause(2500);
 
   // === SCENE 4: The Stack (1:50-2:25) ===
@@ -139,15 +139,15 @@ async function run() {
   await pause(1500);
   addLine('');
   addLine('<span class="user">▲ Vercel v0 Frontend</span> <span class="dim">— Next.js 14 + Tailwind CSS</span>');
-  addLine('  <span class="dim">│  Dashboard | Service Cards | Context Panel | Memory Feed | Charts</span>');
+  addLine('  <span class="dim">│  Dashboard | Service Cards | Context Panel | Memory Feed | Unavailable metrics</span>');
   addLine('  <span class="dim">│</span>');
-  addLine('<span class="agent">🐍 FastAPI Backend</span> <span class="dim">— Python · SQLAlchemy · psycopg2</span>');
+  addLine('<span class="agent">🐍 FastAPI Backend</span> <span class="dim">— Python · source-labeled fixture routes</span>');
   addLine('  <span class="dim">│  /api/projects | /api/context | /api/memories | /api/analytics</span>');
   addLine('  <span class="dim">│</span>');
-  addLine('<span class="system">☁️ AWS Aurora PostgreSQL</span> <span class="dim">— Serverless v2</span>');
-  addLine('  <span class="dim">│  projects | context_snapshots (JSONB) | memory_events | token_analytics</span>');
+  addLine('<span class="system">☁️ AWS Aurora PostgreSQL</span> <span class="dim">— planned production target</span>');
+  addLine('  <span class="dim">│  schema target | no live connection in this fixture build</span>');
   addLine('  <span class="dim">│</span>');
-  addLine('<span class="highlight">🪞 Perseus Context Engine</span> <span class="dim">— v1.0.7 · MIT · 24 MCP tools</span>');
+  addLine('<span class="highlight">🪞 Perseus Context Engine</span> <span class="dim">— planned evidence-producing integration</span>');
   await pause(3000);
 
   // === SCENE 5: Impact & CTA (2:25-2:55) ===
@@ -156,19 +156,15 @@ async function run() {
   await pause(1500);
   addLine('');
   addLine('<span class="system">◆ Token Savings This Week</span>');
-  addLine('  <span class="agent">Mon  ████████████░░░░░░░░  2,100 saved / 8,500 used</span>');
-  addLine('  <span class="agent">Tue  ██████████░░░░░░░░░░  1,800 saved / 7,200 used</span>');
-  addLine('  <span class="agent">Wed  ██████████████░░░░░░  2,400 saved / 9,100 used</span>');
-  addLine('  <span class="agent">Thu  ██████████████████░  3,100 saved / 10,400 used</span>');
-  addLine('  <span class="agent">Fri  ███████████░░░░░░░░░  1,950 saved / 7,800 used</span>');
+  addLine('  <span class="agent">Unavailable — no paired measured before/after sessions</span>');
   await pause(2500);
   addLine('');
-  addLine('<span class="dim">── 12,847 tokens saved this week. Every token was discovery the agent didn\'t need. ──</span>');
+  addLine('<span class="dim">── Token savings are not claimed until a hash-bound paired-session artifact exists. ──</span>');
   await pause(1500);
   addLine('');
   addLine('<span class="title">╔════════════════════════════════════════╗</span>');
   addLine('<span class="title">║  Perseus Dashboard                    ║</span>');
-  addLine('<span class="title">║  github.com/tcconnally/perseus-dashboard ║</span>');
+  addLine('<span class="title">║  github.com/Perseus-Computing-LLC/perseus-dashboard ║</span>');
   addLine('<span class="title">║  H0: Hack the Zero Stack · Open Innovation ║</span>');
   addLine('<span class="title">║  Vercel v0 + AWS Aurora PostgreSQL    ║</span>');
   addLine('<span class="title">╚════════════════════════════════════════╝</span>');

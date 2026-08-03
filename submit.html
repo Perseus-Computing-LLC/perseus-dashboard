@@ -36,7 +36,7 @@
 </div>
 <div class="section">
   <div class="label">Elevator Pitch (200 chars max)</div>
-  <div class="value">Your AI coding agent's context goes stale within hours. Perseus Dashboard defines a source-labeled context and telemetry surface; the current build uses synthetic fixtures and does not claim live health or measured token savings.</div>
+  <div class="value">AI coding context goes stale. This prototype defines a source-labeled context and telemetry contract with synthetic fixtures and explicit unavailable states—not live evidence.</div>
 </div>
 
 <!-- Step 2: Project Details -->
@@ -51,17 +51,17 @@ Perseus Dashboard gives developer teams a source-labeled view of what their AI c
   <div class="label">How I built it</div>
   <div class="value">
 <strong>Frontend:</strong> Next.js 14 deployed on Vercel v0 — dark-themed dashboard with Recharts for data visualization, responsive service health cards, and memory feed timeline.<br><br>
-<strong>Backend:</strong> FastAPI (Python) providing REST endpoints for context resolution, service health, memory events, and token analytics.<br><br>
-<strong>Database:</strong> AWS Aurora PostgreSQL (Serverless v2) — stores projects, context snapshots (JSONB), memory events, and token analytics with full relational schema (SQLAlchemy ORM).<br><br>
-<strong>Context Engine:</strong> Perseus (perseus-ctx v1.0.7) — resolves live workspace state before the frontend displays it. 24 MCP tools, MIT-licensed.<br><br>
-<strong>Architecture:</strong> Vercel v0 → FastAPI → psycopg2 → AWS Aurora PostgreSQL. Three distinct tiers with genuine integration between all layers.
+<strong>Backend:</strong> FastAPI (Python) providing a source-labeled prototype contract for context, service, memory, and analytics endpoints.<br><br>
+<strong>Database:</strong> AWS Aurora PostgreSQL is the planned production target; this checked-in build uses repository fixtures and does not claim a live database connection.<br><br>
+<strong>Context Engine:</strong> Perseus (perseus-ctx) is the planned evidence-producing integration; the current frontend displays synthetic fixture responses.<br><br>
+<strong>Architecture:</strong> Vercel v0 → FastAPI → planned evidence collector/database. Live deployment and database integration require separate verification.
   </div>
 </div>
 
 <div class="section">
   <div class="label">Why Open Innovation track</div>
   <div class="value">
-Perseus Dashboard creates a new product category: "AI Agent Observability." Every dev team using AI coding assistants needs to know what their agent knows — this problem didn't exist 12 months ago. The Open Innovation track allows us to push the boundaries of what's possible with the Vercel v0 + AWS stack by building a real-time observability layer for the AI-assisted development workflow.
+Perseus Dashboard explores an "AI Agent Observability" product category. The Open Innovation track allows us to test a source-labeled observability contract before connecting live evidence producers.
   </div>
 </div>
 
@@ -71,7 +71,7 @@ Perseus Dashboard creates a new product category: "AI Agent Observability." Ever
 1. Multi-project support across entire GitHub orgs<br>
 2. Slack/Discord notifications when context goes stale<br>
 3. Drift detection — compare current context to last session<br>
-4. Team-wide token savings analytics<br>
+4. Team-wide token savings analytics after paired measured artifacts exist<br>
 5. Agent comparison — Claude vs Copilot vs Codex context usage patterns
   </div>
 </div>
@@ -112,7 +112,7 @@ Perseus Dashboard creates a new product category: "AI Agent Observability." Ever
 <h2>📋 Pre-Submit Checklist</h2>
 <ul class="checklist">
   <li>✅ GitHub repo public, MIT license in root AND About section</li>
-  <li>✅ Vercel deployment live and accessible</li>
+  <li>☐ Vercel deployment live and accessible (not verified by this prototype branch)</li>
   <li>☐ AWS Aurora PostgreSQL provisioned and connected (screenshot proof for submission)</li>
   <li>☐ Demo video recorded (≤3 min, YouTube/Vimeo) — must show app functioning + explain AWS DB usage</li>
   <li>☐ Architecture diagram included in submission</li>

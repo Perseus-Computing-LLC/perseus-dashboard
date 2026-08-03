@@ -2,7 +2,7 @@
 
 **Context Dashboard Prototype for AI Coding Agents** — inspect the context and telemetry contract without confusing fixtures for live evidence.
 
-Built for **H0: Hack the Zero Stack** (June 29, 2026). Stack: Vercel v0 + AWS Aurora PostgreSQL.
+Built for **H0: Hack the Zero Stack** (June 29, 2026). Target stack: Vercel v0 + AWS Aurora PostgreSQL; this branch is fixture-backed.
 
 ## Problem
 
@@ -29,14 +29,14 @@ health or token-savings claims.
 │  Vercel v0 Frontend │  Next.js + shadcn/ui
 │  (Dashboard UI)     │
 └────────┬────────────┘
-         │ REST + WebSocket
+         │ REST fixture contract
 ┌────────▼────────────┐
-│  Perseus API        │  FastAPI + perseus-ctx
-│  (Context Engine)   │
+│  FastAPI Backend    │  Source-labeled fixtures
+│  (planned collector)│
 └────────┬────────────┘
-         │ psycopg2
+         │ planned database adapter
 ┌────────▼────────────┐
-│  AWS Aurora         │  PostgreSQL (serverless)
+│  AWS Aurora         │  PostgreSQL (planned target)
 │  (Memory + Analytics│
 └─────────────────────┘
 ```
@@ -59,7 +59,7 @@ npm run dev
 
 **H0: Hack the Zero Stack** — $80,000 in prizes
 - Required: Vercel v0 + AWS Database
-- This project uses: Vercel v0 (frontend) + AWS Aurora PostgreSQL (backend)
+- This project targets: Vercel v0 (frontend) + AWS Aurora PostgreSQL (planned backend)
 - Track: Open Innovation
 - Deadline: June 29, 2026
 

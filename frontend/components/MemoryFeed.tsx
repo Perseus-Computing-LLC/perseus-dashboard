@@ -9,7 +9,7 @@ interface MemoryEvent {
   event_type: string;
   fact_key?: string;
   fact_value?: string;
-  confidence: number;
+  confidence?: number | null;
   created_at: string;
   data_mode?: string;
 }
@@ -54,7 +54,7 @@ export default function MemoryFeed({ projectId }: { projectId: number }) {
                   {new Date(event.created_at).toLocaleTimeString()}
                 </span>
                 <span className="text-xs text-gray-600 ml-auto">
-                  {Math.round(event.confidence * 100)}% conf
+                  {event.confidence == null ? 'confidence unavailable' : `${Math.round(event.confidence * 100)}% conf`}
                 </span>
               </div>
               <div className="text-[10px] uppercase tracking-wide text-gray-600">
