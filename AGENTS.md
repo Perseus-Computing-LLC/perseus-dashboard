@@ -1,12 +1,12 @@
 # Perseus Dashboard — Project context for AI agents
 
 ## Purpose
-Perseus Dashboard is a web UI that shows developers what their AI coding agents know about their codebase. Built for H0: Hack the Zero Stack (Vercel v0 + AWS Aurora PostgreSQL).
+Perseus Dashboard is a source-labeled web UI prototype for showing what evidence AI coding agents may receive. Built for H0: Hack the Zero Stack; Vercel v0 + AWS Aurora PostgreSQL are target integrations.
 
 ## Stack
-- Frontend: Next.js + shadcn/ui (deployed on Vercel/v0)
+- Frontend: Next.js + shadcn/ui (compatible with Vercel/v0; deployment unverified)
 - Backend: FastAPI (Python)
-- Database: AWS Aurora PostgreSQL
+- Database: AWS Aurora PostgreSQL (planned target; fixture backend currently)
 - Context Engine: Perseus (perseus-ctx)
 
 ## How to run

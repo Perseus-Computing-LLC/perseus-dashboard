@@ -2,10 +2,10 @@ export default function ContextPanel({ context }: { context: any }) {
   if (!context) {
     return (
       <div>
-        <h2 className="text-lg font-semibold mb-3">Live Context Snapshot</h2>
+        <h2 className="text-lg font-semibold mb-3">Synthetic Context Snapshot</h2>
         <div className="card text-sm text-gray-400">
-          <p className="mb-2">Context will appear here when the API is connected.</p>
-          <p>Demo files: AGENTS.md, pyproject.toml, docker-compose.yml, Makefile</p>
+          <p className="mb-2">No live context snapshot is available.</p>
+          <p>Connect an evidence-producing collector to show source, revision, and observation time.</p>
         </div>
       </div>
     );
@@ -13,11 +13,12 @@ export default function ContextPanel({ context }: { context: any }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-3">Live Context Snapshot</h2>
+      <h2 className="text-lg font-semibold mb-3">Synthetic Context Snapshot</h2>
       <div className="card">
         <div className="text-xs text-gray-500 mb-3">
-          Resolved at: {new Date(context.resolved_at).toLocaleString()} &middot;
-          Token estimate: {context.token_estimate?.toLocaleString()}
+          Data mode: {context.data_mode || 'unknown'} &middot;
+          Source: {context.source || 'unknown'} &middot;
+          Observed at: {context.observed_at ? new Date(context.observed_at).toLocaleString() : 'unknown'}
         </div>
         <div className="space-y-2">
           <h3 className="text-sm font-medium text-gray-300">Services ({context.services?.length || 0})</h3>
