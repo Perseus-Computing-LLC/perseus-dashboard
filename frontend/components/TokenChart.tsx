@@ -32,6 +32,9 @@ export default function TokenChart({ projectId }: { projectId: number }) {
           <Line type="monotone" dataKey="used" stroke="#5c7cfa" strokeWidth={2} name="Tokens Used" />
         </LineChart>
       </ResponsiveContainer>
+      <p className="mt-3 text-xs text-gray-500">
+        Synthetic repository fixture only; no measured token-savings claim is available.
+      </p>
       <div className="flex gap-6 mt-3 text-xs text-gray-400">
         <div className="flex items-center gap-2">
           <div className="w-3 h-0.5 bg-[#3fb950]" /> Tokens Saved

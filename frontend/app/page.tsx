@@ -12,25 +12,52 @@ interface ServiceStatus {
   name: string;
   status: string;
   latency_ms?: number;
+  data_mode?: string;
+}
+
+interface AnalyticsSummary {
+  data_mode?: string;
+  metric_status?: string;
+  total_saved?: number | null;
+  observed_at?: string;
 }
 
 export default function DashboardPage() {
   const [services, setServices] = useState<ServiceStatus[]>([]);
   const [context, setContext] = useState<any>(null);
+  const [analytics, setAnalytics] = useState<AnalyticsSummary | null>(null);
+  const [memoryCount, setMemoryCount] = useState<number | null>(null);
+  const [dataMode, setDataMode] = useState('unavailable');
   const [loading, setLoading] = useState(true);
   const projectId = 1; // Demo project
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [svcRes, ctxRes] = await Promise.all([
+        const [svcRes, ctxRes, analyticsRes, memoriesRes] = await Promise.all([
           fetch(`${API_URL}/api/projects/${projectId}/services`),
           fetch(`${API_URL}/api/projects/${projectId}/context`),
+          fetch(`${API_URL}/api/projects/${projectId}/analytics/summary`),
+          fetch(`${API_URL}/api/projects/${projectId}/memories?limit=50`),
         ]);
-        if (svcRes.ok) setServices(await svcRes.json());
-        if (ctxRes.ok) setContext(await ctxRes.json());
+        if (svcRes.ok) {
+          const nextServices = await svcRes.json();
+          setServices(nextServices);
+          if (nextServices[0]?.data_mode) setDataMode(nextServices[0].data_mode);
+        }
+        if (ctxRes.ok) {
+          const nextContext = await ctxRes.json();
+          setContext(nextContext);
+          if (nextContext.data_mode) setDataMode(nextContext.data_mode);
+        }
+        if (analyticsRes.ok) {
+          const nextAnalytics = await analyticsRes.json();
+          setAnalytics(nextAnalytics);
+          if (nextAnalytics.data_mode) setDataMode(nextAnalytics.data_mode);
+        }
+        if (memoriesRes.ok) setMemoryCount((await memoriesRes.json()).length);
       } catch (e) {
-        console.log('API not available, using demo data');
+        console.log('Dashboard telemetry unavailable');
       } finally {
         setLoading(false);
       }
@@ -38,17 +65,7 @@ export default function DashboardPage() {
     fetchData();
   }, []);
 
-  // Demo data when API isn't running
-  const demoServices: ServiceStatus[] = [
-    { name: 'CI (GitHub Actions)', status: 'up', latency_ms: 234 },
-    { name: 'PostgreSQL (Aurora)', status: 'up', latency_ms: 12 },
-    { name: 'Redis Cache', status: 'up', latency_ms: 3 },
-    { name: 'API Gateway', status: 'up', latency_ms: 45 },
-    { name: 'Docker Registry', status: 'up', latency_ms: 89 },
-    { name: 'Sentry (Error Tracking)', status: 'up', latency_ms: 156 },
-  ];
-
-  const displayServices = services.length > 0 ? services : demoServices;
+  const displayServices = services;
   const upCount = displayServices.filter(s => s.status === 'up').length;
 
   return (
@@ -57,7 +74,8 @@ export default function DashboardPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">perseus-dashboard</h1>
         <p className="text-gray-400">
-          Live context for your AI coding agents &middot; Last resolved: just now
+          Context telemetry &middot; Data mode: {dataMode} &middot;{' '}
+          Last observed: {context?.observed_at ? new Date(context.observed_at).toLocaleString() : 'unavailable'}
         </p>
       </div>
 
@@ -65,19 +83,19 @@ export default function DashboardPage() {
       <div className="grid grid-cols-4 gap-4 mb-8">
         <div className="card">
           <div className="text-sm text-gray-400 mb-1">Services</div>
-          <div className="text-2xl font-bold text-[#3fb950]">{upCount}/{displayServices.length} UP</div>
+          <div className="text-2xl font-bold text-[#3fb950]">{displayServices.length ? `${upCount}/${displayServices.length} UP` : '—'}</div>
         </div>
         <div className="card">
           <div className="text-sm text-gray-400 mb-1">Context Files</div>
-          <div className="text-2xl font-bold">{context?.context_files?.length || 3}</div>
+          <div className="text-2xl font-bold">{context?.context_files?.length ?? '—'}</div>
         </div>
         <div className="card">
           <div className="text-sm text-gray-400 mb-1">Tokens Saved</div>
-          <div className="text-2xl font-bold text-[#5c7cfa]">12,847</div>
+          <div className="text-2xl font-bold text-[#5c7cfa]">{analytics?.total_saved ?? '—'}</div>
         </div>
         <div className="card">
           <div className="text-sm text-gray-400 mb-1">Active Memories</div>
-          <div className="text-2xl font-bold text-[#d2991d]">47</div>
+          <div className="text-2xl font-bold text-[#d2991d]">{memoryCount ?? '—'}</div>
         </div>
       </div>
 
@@ -85,6 +103,7 @@ export default function DashboardPage() {
       <div className="mb-8">
         <h2 className="text-lg font-semibold mb-3">Service Health</h2>
         <div className="grid grid-cols-3 gap-3">
+          {displayServices.length === 0 && <div className="card text-sm text-gray-400">No live service telemetry is available.</div>}
           {displayServices.map((svc) => (
             <ServiceCard key={svc.name} name={svc.name} status={svc.status} latency_ms={svc.latency_ms} />
           ))}
@@ -99,7 +118,7 @@ export default function DashboardPage() {
 
       {/* Analytics Chart */}
       <div>
-        <h2 className="text-lg font-semibold mb-3">Token Savings (Last 7 Days)</h2>
+        <h2 className="text-lg font-semibold mb-3">Token Savings (Last 7 Days · synthetic fixture)</h2>
         <TokenChart projectId={projectId} />
       </div>
     </div>

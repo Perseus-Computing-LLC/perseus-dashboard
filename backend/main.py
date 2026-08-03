@@ -21,6 +21,7 @@ class ServiceStatus(BaseModel):
     name: str
     status: str
     latency_ms: Optional[float] = None
+    data_mode: str = "synthetic"
 
 MOCK_SERVICES = [
     {"name": "CI (GitHub Actions)", "status": "up", "latency_ms": 234},
@@ -56,12 +57,27 @@ def get_services(project_id: int):
 
 @app.get("/api/projects/{project_id}/context")
 def get_context(project_id: int):
-    return {"project_id": project_id, "now": now_iso(), "services": MOCK_SERVICES, "files": ["AGENTS.md"]}
+    return {
+        "project_id": project_id,
+        "observed_at": now_iso(),
+        "data_mode": "synthetic",
+        "synthetic": True,
+        "source": "repository fixture",
+        "services": [ServiceStatus(**s).model_dump() for s in MOCK_SERVICES],
+        "context_files": ["AGENTS.md"],
+    }
 
 @app.get("/api/projects/{project_id}/memories")
 def get_memories(project_id: int, limit: int = 50):
-    return [{"id": 1, "event_type": "store", "now": now_iso()}]
+    return [{"id": 1, "event_type": "store", "data_mode": "synthetic", "created_at": now_iso()}]
 
 @app.get("/api/projects/{project_id}/analytics/summary")
 def get_analytics_summary(project_id: int):
-    return {"project_id": project_id, "total_saved": 12847, "now": now_iso()}
+    return {
+        "project_id": project_id,
+        "data_mode": "synthetic",
+        "metric_status": "unavailable",
+        "source": "repository fixture",
+        "total_saved": None,
+        "observed_at": now_iso(),
+    }

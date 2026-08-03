@@ -11,6 +11,7 @@ interface MemoryEvent {
   fact_value?: string;
   confidence: number;
   created_at: string;
+  data_mode?: string;
 }
 
 export default function MemoryFeed({ projectId }: { projectId: number }) {
@@ -23,13 +24,7 @@ export default function MemoryFeed({ projectId }: { projectId: number }) {
       .catch(() => {});
   }, [projectId]);
 
-  const displayEvents = events.length > 0 ? events : [
-    { id: 1, event_type: 'store', fact_key: 'database.postgres_version', fact_value: 'PostgreSQL 16.3 on Aurora', confidence: 0.95, created_at: new Date().toISOString() },
-    { id: 2, event_type: 'recall', fact_key: 'convention.python_formatter', fact_value: 'black --line-length 88', confidence: 0.92, created_at: new Date(Date.now() - 60000).toISOString() },
-    { id: 3, event_type: 'insight', fact_key: 'pattern.api_structure', fact_value: 'FastAPI routes follow /api/resource/{id}/action pattern', confidence: 0.88, created_at: new Date(Date.now() - 120000).toISOString() },
-    { id: 4, event_type: 'store', fact_key: 'config.ci_provider', fact_value: 'GitHub Actions with matrix build', confidence: 0.90, created_at: new Date(Date.now() - 180000).toISOString() },
-    { id: 5, event_type: 'decay', fact_key: 'preference.old_editor', fact_value: 'vscode (switched to cursor)', confidence: 0.15, created_at: new Date(Date.now() - 240000).toISOString() },
-  ];
+  const displayEvents = events;
 
   const badgeClass = (type: string) => {
     switch (type) {
@@ -43,9 +38,12 @@ export default function MemoryFeed({ projectId }: { projectId: number }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-3">Memory Feed</h2>
+      <h2 className="text-lg font-semibold mb-3">Memory Feed (source-labeled)</h2>
       <div className="card max-h-[400px] overflow-y-auto">
         <div className="space-y-3">
+          {displayEvents.length === 0 && (
+            <p className="text-sm text-gray-400">No live memory events are available.</p>
+          )}
           {displayEvents.map((event) => (
             <div key={event.id} className="border-b border-[#30363d] pb-2 last:border-0">
               <div className="flex items-center gap-2 mb-1">
@@ -58,6 +56,9 @@ export default function MemoryFeed({ projectId }: { projectId: number }) {
                 <span className="text-xs text-gray-600 ml-auto">
                   {Math.round(event.confidence * 100)}% conf
                 </span>
+              </div>
+              <div className="text-[10px] uppercase tracking-wide text-gray-600">
+                data mode: {event.data_mode || 'unknown'}
               </div>
               {event.fact_key && (
                 <div className="text-xs text-gray-400 mt-1">
